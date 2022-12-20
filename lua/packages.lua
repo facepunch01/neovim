@@ -6,6 +6,7 @@ vim.g.coq_settings = { auto_start = 'shut-up' }
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+	use 'kyazdani42/nvim-web-devicons'
   -- Autocomplete
   use { 'ms-jpq/coq_nvim', branch ="coq" }
   use { 'ms-jpq/coq.artifacts', branch = "artifacts" }
@@ -23,14 +24,7 @@ return require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
-  -- nvim-tree
-  use {
-    'nvim-tree/nvim-tree.lua',
-    requires = {
-      'nvim-tree/nvim-web-devicons', -- optional, for file icons
-    },
-    tag = 'nightly' -- optional, updated every week. (see issue #1193)
-  }
+	-- Auto pairs like (that)
 	use {
 	  "windwp/nvim-autopairs",
       config = function() require("nvim-autopairs").setup {} end
@@ -54,13 +48,21 @@ return require('packer').startup(function(use)
       "rcarriga/nvim-notify",
     }
   })
-	use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
+	-- Tabline
+	use { 'echasnovski/mini.tabline', branch = 'stable' }
+	-- Auto path fixing
 	use { 'jghauser/mkdir.nvim' }
+	-- startpage
 	use {
-    'goolord/alpha-nvim',
-    requires = { 'nvim-tree/nvim-web-devicons' },
-    config = function ()
-        require'alpha'.setup(require'alpha.themes.startify'.config)
-    end
+      'goolord/alpha-nvim',
+      requires = { 'nvim-tree/nvim-web-devicons' },
+      config = function ()
+          require'alpha'.setup(require'alpha.themes.startify'.config)
+      end
   }
+	-- fast file explorer
+	use 'SidOfc/carbon.nvim'
+	-- JUMP fast
+	use 'tpope/vim-repeat'
+	use 'ggandor/leap.nvim'
 end)

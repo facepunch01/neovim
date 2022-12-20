@@ -40,6 +40,7 @@ require('lualineconf')
 require('nvim-treeconf')
 require('keybinds')
 require('noiceconf')
+require("uigroup")
 
 -- Lua:
 vim.cmd[[colorscheme dracula]]
