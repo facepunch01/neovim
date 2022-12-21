@@ -13,7 +13,7 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.runtimepath:prepend(lazypath)
-require("lazy").setup({	
+require("lazy").setup({
 	-- Base deps
 	'nvim-lua/plenary.nvim',
 	'kyazdani42/nvim-web-devicons',
@@ -84,4 +84,15 @@ require("lazy").setup({
       end,
 			lazy = false
   },
+	({
+    "glepnir/lspsaga.nvim",
+    branch = "main",
+    config = function()
+        local saga = require("lspsaga")
+
+        saga.init_lsp_saga({
+            -- your configuration
+        })
+    end,
+  })
 })
