@@ -6,6 +6,8 @@ vim.g.coq_settings = { auto_start = 'shut-up' }
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+	-- base deps
+	use "nvim-lua/plenary.nvim"
 	use 'kyazdani42/nvim-web-devicons'
   -- Autocomplete
   use { 'ms-jpq/coq_nvim', branch ="coq" }
@@ -65,4 +67,14 @@ return require('packer').startup(function(use)
 	-- JUMP fast
 	use 'tpope/vim-repeat'
 	use 'ggandor/leap.nvim'
+	-- Magit in neovim
+  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+	-- fine treesitter
+  use {
+      'nvim-treesitter/nvim-treesitter',
+      run = function()
+          local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+         ts_update()
+      end,
+	}
 end)
