@@ -41,6 +41,7 @@ require('nvim-treeconf')
 require('keybinds')
 require('noiceconf')
 require("uigroup")
+require('treesitterconf')
 
 -- Lua:
 vim.cmd[[colorscheme dracula]]
