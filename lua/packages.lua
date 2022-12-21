@@ -1,47 +1,71 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+-- LAZY PACKAGE MANAGER
 vim.g.coq_settings = { auto_start = 'shut-up' }
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
-	-- base deps
-	use "nvim-lua/plenary.nvim"
-	use 'kyazdani42/nvim-web-devicons'
-  -- Autocomplete
-  use { 'ms-jpq/coq_nvim', branch ="coq" }
-  use { 'ms-jpq/coq.artifacts', branch = "artifacts" }
-  use { 'ms-jpq/coq.thirdparty', branch = "3p"}
-  -- dracula
-  use {'Mofiqul/dracula.nvim'}
-  -- Mason setup
-  use {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-  }
-  -- lualine
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
-	-- Auto pairs like (that)
-	use {
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--single-branch",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
+end
+vim.opt.runtimepath:prepend(lazypath)
+require("lazy").setup({	
+	-- Base deps
+	'nvim-lua/plenary.nvim',
+	'kyazdani42/nvim-web-devicons',
+	-- CODE EDITING
+  -- Lsp
+  { 'ms-jpq/coq_nvim', branch = "coq" },
+  { 'ms-jpq/coq.artifacts', branch = "artifacts" },
+  { 'ms-jpq/coq.thirdparty', branch = "3p"},
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
+  "neovim/nvim-lspconfig",
+  -- Undo tree
+	'mbbill/undotree',
+  -- Auto pairs like (that)
+	{
 	  "windwp/nvim-autopairs",
       config = function() require("nvim-autopairs").setup {} end
-  }
-	-- markdown
-	use {"ellisonleao/glow.nvim"}
+  },
+  -- Auto path fixing
+	'jghauser/mkdir.nvim',
+  	-- markdown
+	"ellisonleao/glow.nvim",
+	-- JUMP fast
+	'tpope/vim-repeat',
+	'ggandor/leap.nvim',
+	-- Magit in neovim
+  'TimUntersberger/neogit',
+	-- fine treesitter
+  {
+      'nvim-treesitter/nvim-treesitter',
+      run = function()
+          local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+         ts_update()
+      end,
+	},
+	'nvim-treesitter/playground',
+
+	-- UI
+  'Mofiqul/dracula.nvim',
+	-- lualine
+  'nvim-lualine/lualine.nvim',
+  -- Tabline
+	{ 'echasnovski/mini.tabline', branch = 'stable' },
   -- Noice
-	use({
+	({
     "folke/noice.nvim",
     config = function()
       require("noice").setup({
           -- add any options here
       })
     end,
-    requires = {
+    dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
       -- OPTIONAL:
@@ -49,33 +73,15 @@ return require('packer').startup(function(use)
       --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
     }
-  })
-	-- Tabline
-	use { 'echasnovski/mini.tabline', branch = 'stable' }
-	-- Auto path fixing
-	use { 'jghauser/mkdir.nvim' }
+  }),
+	-- fast file explorer
+	{ 'SidOfc/carbon.nvim', lazy = false },
 	-- startpage
-	use {
+	{
       'goolord/alpha-nvim',
-      requires = { 'nvim-tree/nvim-web-devicons' },
       config = function ()
           require'alpha'.setup(require'alpha.themes.startify'.config)
-      end
-  }
-	-- fast file explorer
-	use 'SidOfc/carbon.nvim'
-	-- JUMP fast
-	use 'tpope/vim-repeat'
-	use 'ggandor/leap.nvim'
-	-- Magit in neovim
-  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
-	-- fine treesitter
-  use {
-      'nvim-treesitter/nvim-treesitter',
-      run = function()
-          local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-         ts_update()
       end,
-	}
-	use 'nvim-treesitter/playground'
-end)
+			lazy = false
+  },
+})
