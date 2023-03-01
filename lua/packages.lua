@@ -76,14 +76,9 @@ require("lazy").setup({
   }),
 	-- fast file explorer
 	{ 'SidOfc/carbon.nvim', lazy = false },
+  { 'stevearc/oil.nvim' },
 	-- startpage
-	{
-      'goolord/alpha-nvim',
-      config = function ()
-          require'alpha'.setup(require'alpha.themes.startify'.config)
-      end,
-			lazy = false
-  },
+  { 'echasnovski/mini.starter', version = false },
 	({
     "glepnir/lspsaga.nvim",
     branch = "main",
