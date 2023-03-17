@@ -1,5 +1,6 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 -- LAZY PACKAGE MANAGER
+
 vim.g.coq_settings = { auto_start = 'shut-up' }
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -21,10 +22,11 @@ require("lazy").setup({
   -- Lsp
   { 'ms-jpq/coq_nvim', branch = "coq" },
   { 'ms-jpq/coq.artifacts', branch = "artifacts" },
-  { 'ms-jpq/coq.thirdparty', branch = "3p"},
-  "williamboman/mason.nvim",
+  { 'ms-jpq/coq.thirdparty', branch = "3p"},  "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
+  "mfussenegger/nvim-dap",
+	"jose-elias-alvarez/null-ls.nvim",
   -- Undo tree
 	'mbbill/undotree',
   -- Auto pairs like (that)
@@ -79,15 +81,15 @@ require("lazy").setup({
   { 'stevearc/oil.nvim' },
 	-- startpage
   { 'echasnovski/mini.starter', version = false },
-	({
-    "glepnir/lspsaga.nvim",
-    branch = "main",
-    config = function()
-        local saga = require("lspsaga")
+	--({
+  --  "glepnir/lspsaga.nvim",
+   -- branch = "main",
+    --config = function()
+      --  local saga = require("lspsaga")
 
-        saga.init_lsp_saga({
+       -- saga.init_lsp_saga({
             -- your configuration
-        })
-    end,
-  })
+        --})
+    --end,
+  --})
 })

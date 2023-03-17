@@ -1,4 +1,5 @@
-require'lspconfig'.sumneko_lua.setup {
+
+require'lspconfig'.lua_ls.setup {
   settings = {
     Lua = {
       runtime = {
@@ -21,3 +22,13 @@ require'lspconfig'.sumneko_lua.setup {
     },
   },
 }
+require'lspconfig'.rust_analyzer.setup{
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = false;
+      }
+    }
+  }
+}
+require'lspconfig'.zls.setup{}
